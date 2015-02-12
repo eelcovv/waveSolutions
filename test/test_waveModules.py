@@ -8,6 +8,10 @@ import numpy as np
 import argparse
 import logging
 
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+import matplotlib.pyplot as plt
+
 try:
     import matplotlib.pyplot as plt
     from matplotlib import cm, animation

@@ -6,13 +6,14 @@ import defaultWaveModules as wm
 import JONSWAP_p as JS
 import numpy as np
 import argparse
+import logging
 
 try:
     import matplotlib.pyplot as plt
     from matplotlib import cm, animation
     import mpl_toolkits.mplot3d.axes3d as p3
 except:
-    print "[EXCEPTION RAISED] - Cannon IMPORT and initialize plotting with Matplotlib - EXIT"
+    logging.error("Cannon IMPORT and initialize plotting with Matplotlib - EXIT")
     sys.exit()
 
 """ Testing different analytic solution for wavetank benchmark case."""
@@ -34,7 +35,7 @@ def test_Linear2D(args):
                            rho_0,rho_1,randomPhase)
 
     # test flow control
-    print "TEST CASE NAME is: ", waveTest.name
+    logging.info("TEST CASE NAME is: {}".formwat(waveTest.name))
     saveFrames = args.save
     saveMovie = args.movie
     playMovie = args.play
@@ -81,20 +82,20 @@ def test_Linear2D(args):
             plt.savefig(waveTest.name+'/'+'frame%4.4d.png' % n)
         else:
             plt.show() # user wants to view/plot every frame (time consuming)
-    print "[DONE]"
+    logging.info("[DONE]")
 
     if saveFrames and saveMovie:
         try:
             subprocess.call(r"ffmpeg -r "+str(frameRate)+" -y -i "+waveTest.name+"/frame%4d.png -vcodec libx264 -sameq "+waveTest.name+"/"+waveTest.name+".mp4",shell=True)
         except:
-            print "[EXEPTION RAISED] - Cannot save "+waveTest.name+".mp4 with ffmpeg"
+            logging.error("Cannot save {}.mp4 with ffmpeg".format(waveTest.name))
             sys.exit()
 
     if saveMovie and playMovie:
         try:
             subprocess.call(r"open "+waveTest.name+"/"+waveTest.name+".mp4", shell=True)
         except:
-            print "[EXCEPTION RAISED] - Cannot play "+waveTest.name+".mp4 movie"
+            logging.error("Cannot play {}.mp4 movie".format(waveTest.name))
             sys.exit()
 
 
@@ -118,7 +119,7 @@ def test_Linear3D(args):
                            rho_0,rho_1, randomPhase)
 
     # test flow control
-    print "TEST CASE NAME is: ", waveTest.name
+    logging.info("TEST CASE NAME is: {}".format(waveTest.name))
     saveFrames = args.save
     saveMovie = args.movie
     playMovie = args.play
@@ -178,20 +179,20 @@ def test_Linear3D(args):
             plt.savefig(waveTest.name+'/'+'frame%4.4d.png' % n)
         else:
             plt.show() # user wants to view/plot every frame (time consuming)
-    print "[DONE]"
+    logging.info("[DONE]")
 
     if saveFrames and saveMovie:
         try:
             subprocess.call(r"ffmpeg -r "+str(frameRate)+" -y -i "+waveTest.name+"/frame%4d.png -vcodec libx264 -sameq "+waveTest.name+"/"+waveTest.name+".mp4",shell=True)
         except:
-            print "[EXEPTION RAISED] - Cannot save "+waveTest.name+".mp4 with ffmpeg"
+            loggin.error("[EXEPTION RAISED] - Cannot save "+waveTest.name+".mp4 with ffmpeg")
             sys.exit()
 
     if saveMovie and playMovie:
         try:
             subprocess.call(r"open "+waveTest.name+"/"+waveTest.name+".mp4", shell=True)
         except:
-            print "[EXCEPTION RAISED] - Cannot play "+waveTest.name+".mp4 movie"
+            logging.error("Cannot play {}.mp4 movie".format(waveTest.name))
             sys.exit()
 
 
@@ -404,7 +405,7 @@ if __name__ == '__main__':
     parser.add_argument('-p','--play', action='store_true',
                         help='play a movie created with ffmpeg (default: movie not played if flag not set)')
     args = parser.parse_args()
-    print 'Input arguments are: ', args
+    logging.info('Input arguments are: {}'.format(args))
 
     #test_Linear2D(args)
     test_Linear3D(args) #---> NEED TO FINISH

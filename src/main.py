@@ -1,8 +1,8 @@
-import os
-import sys
 
 import numpy as np
 import defaultWaveModules as wm
+import logging
+from math import pi
   
 # Domain and mesh
 depthFactor=4.0#16.0  # ...TODO: remove depthFactor after debugging
@@ -55,10 +55,10 @@ randomPhase = False
 
 ################
 # DEBUGGING
-print "WAVE STEEPNESS IS: ", epsilon
-print "AMPLITUDE IS: ", amplitude
-print "GROUP SPPED IS: ", groupVelocity
-print "WAVELENGTH IS: ", waveLength
+logging.debug("WAVE STEEPNESS IS: {}".format(epsilon))
+logging.debug("AMPLITUDE IS: {}".format(amplitude))
+logging.debug("GROUP SPPED IS: {}".format(groupVelocity))
+logging.debug("WAVELENGTH IS: {}".format(waveLength))
 #sys.exit()
 ##############
 
@@ -136,4 +136,4 @@ def wavePhi_init(x,t):
 # Computation Time for Wave(s) to return to wave maker (based on groupVelocity)
 # ...TODO: remove debugFactor when done debugging 
 T=2*period#3.00
-print "Total Time of Computation is: ",T
+logging.info("Total Time of Computation is: {}".format(T))

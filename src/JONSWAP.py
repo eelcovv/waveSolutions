@@ -1,5 +1,6 @@
 
 from math import pi
+from math import floor
 import numpy as np          # modules for computing FFT and other numerical stuff
 import JONSWAP_p as JS
 from spectrum import jonswap
@@ -7,7 +8,7 @@ from potential import velocityPotential
 
 try:
     import matplotlib.pyplot as plt
-    from matplotlib import cm
+    #from matplotlib import cm
     import mpl_toolkits.mplot3d.axes3d as p3
 except:
     pass
@@ -44,9 +45,9 @@ LAST UPDATE: January 14, 2014
 """
 
     # Some Global Variables
-    omega_peak = 2.0*pi*JS.fp              # peak angular frequency
+    #omega_peak = 2.0*pi*JS.fp              # peak angular frequency
     kp = (2.0*pi*JS.fp)**2 / JS.gv      # peak wavenumber (determinied from disper. rel. with h-->infty)
-    neqs = 2                               # number of equations
+    #neqs = 2                               # number of equations
 
     # Discretization
     Nx = 2**JS.npw1                # number of Fourier modes
@@ -105,7 +106,7 @@ LAST UPDATE: January 14, 2014
         pass
 
     # Returning surface elvation along the line of wavemakers [x,y]
-    loc = 10
+    #loc = 10
     return surface #[loc,:]
 
 

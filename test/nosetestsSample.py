@@ -1,6 +1,6 @@
 def test_b():
     assert 'b' == 'b'
-    print 'So what grade we got last year?'
+    print('So what grade we got last year?')
 
 class TestExampleTwo:
     def test_c(self):

@@ -62,15 +62,19 @@ def jonswap(nx, ny, Hs, gamma, fp, nspread, thetam, gv, kx, ky):
     
     spectrum = zeros((nx,ny),complex)
     
+    nxover2=int(nx/2)
+    nyover2=int(ny/2)
+    
+    
     omega_peak = 2.0*pi*fp
     kp = omega_peak**2 / gv      # peak wavenumber (determinied from disper. rel. with h->infty)
     
-    spread = spreading(kx[10], ky[10], nspread, thetam)
+    #spread = spreading(kx[10], ky[10], nspread, thetam)
     
     # Define the spectrum over HALF the modes as the input is REAL and thus
     # the other half of the modes is just the complex conjugate of the first!
     for j in range(0, ny, 1):
-        for i in range(0, nx/2+1, 1): # ~ loops over nx/2+1 (from  0^th to nx/2^th) terms
+        for i in range(0, nxover2+1, 1): # ~ loops over nx/2+1 (from  0^th to nx/2^th) terms
             kk = sqrt(kx[i]**2 + ky[j]**2)
             if kk == 0.0:
                 spectrum[i,j] = 0.0 + 0.0j
@@ -106,24 +110,24 @@ def jonswap(nx, ny, Hs, gamma, fp, nspread, thetam, gv, kx, ky):
  
     # For real transforms the highest and lowest modes  are real!!!
     spectrum[0,0] = real(spectrum[0,0])
-    spectrum[nx/2,0] = real(spectrum[nx/2,0])
-    spectrum[0, ny/2] = real(spectrum[0, ny/2])
-    spectrum[nx/2, ny/2] = real(spectrum[nx/2, ny/2])
+    spectrum[nxover2,0] = real(spectrum[nxover2,0])
+    spectrum[0, nyover2] = real(spectrum[0, nyover2])
+    spectrum[nxover2, nyover2] = real(spectrum[nxover2, nyover2])
         
  
     # Constructing the other half (complex conjugates) ~ linear vectors first
-    spectrum[nx/2+1:nx-1, 0] = spectrum[nx/2-1:1:-1, 0].conj()          # along ky = 0
-    spectrum[0, ny/2+1:ny-1] = spectrum[0, ny/2-1:1:-1].conj()          # along kx = 0
-    spectrum[nx/2, ny/2+1:ny-1] = spectrum[nx/2, ny/2-1:1:-1].conj()    # along kx = Nx/2
-    spectrum[nx/2+1:nx-1, ny/2] = spectrum[nx/2-1:1:-1, ny/2].conj()    # along ky = Ny/2
+    spectrum[nxover2+1:nx-1, 0] = spectrum[nxover2-1:1:-1, 0].conj()          # along ky = 0
+    spectrum[0, nyover2+1:ny-1] = spectrum[0, nyover2-1:1:-1].conj()          # along kx = 0
+    spectrum[nxover2, nyover2+1:ny-1] = spectrum[nxover2, nyover2-1:1:-1].conj()    # along kx = nx/2
+    spectrum[nxover2+1:nx-1, nyover2] = spectrum[nxover2-1:1:-1, nyover2].conj()    # along ky = ny/2
     
     # Now for the complex conjugates of the quadrants!    
-    for j in range (1, ny/2, 1):
-        for i in range (nx/2+1, nx, 1):            
+    for j in range (1, nyover2, 1):
+        for i in range (nxover2+1, nx, 1):            
             spectrum[i,j] = spectrum[nx-i, ny-j].conj()
     
-    for j in range (ny/2+1, ny, 1):
-        for i in range (nx/2+1, nx, 1):
+    for j in range (nyover2+1, ny, 1):
+        for i in range (nxover2+1, nx, 1):
             spectrum[i,j] = spectrum[nx-i, ny-j].conj()
      
     return spectrum

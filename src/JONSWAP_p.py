@@ -15,7 +15,7 @@ y1b = 0.0
 y1e = 0.25
 
 # Order of nonlinearity
-eqorder = 3
+eqorder = 1
 # NOTE: set eqorder to 1 if you want directional LINEAR waves
 
 # Gravity

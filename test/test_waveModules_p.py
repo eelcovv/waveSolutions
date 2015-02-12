@@ -1,5 +1,14 @@
 import numpy as np
 from math import *
+import logging
+
+log=logging.getLogger(__name__)
+#out_hdlr = logging.StreamHandler(sys.stdout)
+#out_hdlr.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+#out_hdlr.setLevel(logging.DEBUG)
+#log.addHandler(out_hdlr)
+log.setLevel(logging.DEBUG)
+
 
 # Water                                                                                                                                                                 
 rho_0 = 998.2
@@ -63,7 +72,7 @@ groupVelocity = df_dk / (2.0*omega)
 randomPhase = False
 
 # Debugging 
-print "regime is: ", regime
-print "depthFactor is: ", depthFactor
-print "wavelength is: ", waveLength
-print "amplitude is: ", amplitude
+log.debug("regime is:  {}".format(regime))
+log.debug("depthFactor is: {}".format(depthFactor))
+log.debug("wavelength is: {}".format(waveLength))
+log.debug("amplitude is: {}".format(amplitude))
